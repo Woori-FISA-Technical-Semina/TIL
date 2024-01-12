@@ -1,7 +1,8 @@
 # 💡 sed 실습
 
 날짜: 2024년 1월 12일
-
+## 📝 예시 데이터
+### 1. drinks.txt
 ```bash
 Drink List
 +-------+----+---------------------------+----------------------+
@@ -13,8 +14,7 @@ Drink List
 |  1900 |  4 | 셀렉스 프로틴             | images/profit.jpg    |
 +-------+----+---------------------------+----------------------+
 ```
-
-
+### 2. engineering.txt
 ```bash
 Activist List
 +-------------+-----------+----------+-------------+
@@ -26,21 +26,21 @@ Activist List
 +-------------+-----------+----------+-------------+
 ```
 
-
-1. '프로틴'이라는 단어가 포함된 모든 라인 출력
+## 📝 문제
+### 1. '프로틴'이라는 단어가 포함된 모든 라인 출력
 
 ```bash
-sed -n '/프로틴/p' drinks.txt
+$ sed -n '/프로틴/p' drinks.txt
 ```
 
 ```bash
 |  1900 |  4 | 셀렉스 프로틴             | images/profit.jpg    |
 ```
 
-2. 아이스 아메리카노' 항목을 삭제
+### 2. 아이스 아메리카노' 항목을 삭제
 
 ```bash
-sed '/아이스 아메리카노/d' drinks.txt
+$ sed '/아이스 아메리카노/d' drinks.txt
 ```
 
 ```bash
@@ -54,10 +54,10 @@ Drink List
 +-------+----+---------------------------+----------------------+
 ```
 
-3. 모든 가격 앞에 '$' 기호 추가
+### 3. 모든 가격 앞에 '$' 기호 추가
 
 ```bash
-sed '/|/s/\([0-9]\{1,\}\)/\$\1/' drinks.txt
+$ sed '/|/s/\([0-9]\{1,\}\)/\$\1/' drinks.txt
 ```
 
 ```bash
@@ -73,10 +73,10 @@ Drink List
 +-------+----+---------------------------+----------------------+
 ```
 
-4. 테이블 헤더 제거
+### 4. 테이블 헤더 제거
 
 ```bash
-sed '1,3d' drinks.txt
+$ sed '1,3d' drinks.txt
 ```
 
 ```bash
@@ -88,11 +88,11 @@ sed '1,3d' drinks.txt
 +-------+----+---------------------------+----------------------+
 ```
 
-5. Drink List에서 img_link의 링크를 image에서 resources로 바꾸기
+### 5. Drink List에서 img_link의 링크를 image에서 resources로 바꾸기
 
 ```bash
-username@servername:~/sedtest$ vi cloud.txt
-username@servername:~/sedtest$ sed 's/images/resources/' cloud.txt
+$ vi cloud.txt
+$ sed 's/images/resources/' cloud.txt
 Drink List
 +-------+----+---------------------------+----------------------+
 | price | id | name                      | img_link             |
@@ -104,11 +104,11 @@ Drink List
 +-------+----+---------------------------+----------------------+
 ```
 
-6. 모든 파일에서 | 를 느낌표로 바꾸기
+### 6. 모든 파일에서 | 를 느낌표로 바꾸기
 
 ```bash
-username@servername:~/sedtest$ sed -i 's/|/!/g' *.txt
-username@servername:~/sedtest$ cat cloud.txt
+$ sed -i 's/|/!/g' *.txt
+$ cat cloud.txt
 Drink List
 +-------+----+---------------------------+----------------------+
 ! price ! id ! name                      ! img_link             !
@@ -119,7 +119,7 @@ Drink List
 !  1900 !  4 ! 셀렉스 프로틴             ! images/profit.jpg    !
 +-------+----+---------------------------+----------------------+
 
-username@servername:~/sedtest$ cat engineering.txt
+$ cat engineering.txt
 Activist List
 +-------------+-----------+----------+-------------+
 ! activist_id ! name      ! password ! major       !
@@ -128,22 +128,21 @@ Activist List
 ! giver2      ! 오드리    ! gp2      ! culture     !
 ! giver3      ! 키다리    ! gp3      ! mentor      !
 +-------------+-----------+----------+-------------+
-username@servername:~/sedtest$
 ```
 
-7. cloud.txt 파일에서 ‘신타’가 나오는 행과 ‘셀렉스’가 나오는 행 사이의 모든 행을 출력하기
+### 7. cloud.txt 파일에서 ‘신타’가 나오는 행과 ‘셀렉스’가 나오는 행 사이의 모든 행을 출력하기
 
 ```bash
-username@servername:~/sedtest$ sed -n '/신타/,/셀렉스/p' cloud.txt
+$ sed -n '/신타/,/셀렉스/p' cloud.txt
 !  2900 !  2 ! 신타6 쉐이크              ! images/shake.jpg     !
 !  1900 !  3 ! XTEND BCAA 자몽           ! images/ade.png       !
 !  1900 !  4 ! 셀렉스 프로틴             ! images/profit.jpg    !
 ```
 
-8. 모든 파일에서 숫자 세자리수 이상은 세자리수마다 쉼표로 구분하기
+### 8. 모든 파일에서 숫자 세자리수 이상은 세자리수마다 쉼표로 구분하기
 
 ```bash
-username@servername:~/sedtest$ sed -E ':L;s=\B[0-9]{3}\b=,&=;t L' *.txt
+$ sed -E ':L;s=\B[0-9]{3}\b=,&=;t L' *.txt
 Drink List
 +-------+----+---------------------------+----------------------+
 ! price ! id ! name                      ! img_link             !
@@ -161,16 +160,15 @@ Activist List
 ! giver2      ! 오드리    ! gp2      ! culture     !
 ! giver3      ! 키다리    ! gp3      ! mentor      !
 +-------------+-----------+----------+-------------+
-username@servername:~/sedtest$
 ```
 
-9. cloud.txt 파일에서 공백을 모두 제거 후 new_cloud.txt라는 새 파일에 저장하기
+### 9. cloud.txt 파일에서 공백을 모두 제거 후 new_cloud.txt라는 새 파일에 저장하기
 
 ```bash
-username@servername:~/sedtest$ sed '/^ *$/d' cloud.txt > new_cloud.txt
-username@servername:~/sedtest$ ls
+$ sed '/^ *$/d' cloud.txt > new_cloud.txt
+$ ls
 cloud.txt  engineering.txt  new_cloud.txt
-username@servername:~/sedtest$ cat new_cloud.txt
+$ cat new_cloud.txt
 Drink List
 +-------+----+---------------------------+----------------------+
 ! price ! id ! name                      ! img_link             !
@@ -182,13 +180,11 @@ Drink List
 +-------+----+---------------------------+----------------------+
 ```
 
-10. '셀렉스 프로틴'의 가격을 2000으로 변경
+### 10. '셀렉스 프로틴'의 가격을 2000으로 변경
 ```
-bash
-sed '/셀렉스 프로틴/s/1900/2000/' drinks.txt
+$ sed '/셀렉스 프로틴/s/1900/2000/' drinks.txt
 ```
 ```
-bash
 Drink List
 +-------+----+---------------------------+----------------------+
 | price | id | name                      | img_link             |
